@@ -1,11 +1,10 @@
 const gameboard = document.getElementById("gameboard");
-
 const playerOneColor = "yellow";
 const playerTwoColor = "red";
 const highlightedRowColor = "lightgray";
-const gameboardBackgroundColor = "blue"
+const gameboardBackgroundColor = "blue";
 
-gameboard.style.backgroundColor = gameboardBackgroundColor
+gameboard.style.backgroundColor = gameboardBackgroundColor;
 if (
   playerOneColor === highlightedRowColor ||
   playerTwoColor === highlightedRowColor
@@ -111,7 +110,6 @@ for (let col = 0; col < 7; col++) {
 
 function setactivePlayerColor(boolean) {
   checkdiagonal();
-  // console.log("diagonal: ", checkdiagonal());
   if (boolean) {
     activePlayerColor = playerOneColor;
   } else {
@@ -121,22 +119,11 @@ function setactivePlayerColor(boolean) {
     activePlayerColor;
 }
 
-const testers = document.getElementById("gameboard").children;
-
-// testers[19].style.backgroundColor = "black";
-// testers[31].style.backgroundColor = "black";
-
-// testers[25].style.backgroundColor = "black";
-// testers[26].style.backgroundColor = "black";
-// testers[23].style.backgroundColor = "black";
-// testers[31].style.backgroundColor = "black";
-
 function checkdiagonal() {
   let output = false;
   const gameboardTiles = document.getElementById("gameboard").children;
 
   if (gameboardTiles.length < 1) {
-    // console.log("here");
     return output;
   }
 
@@ -165,7 +152,7 @@ function checkdiagonal() {
       tile.style.backgroundColor !== highlightedRowColor
     ) {
       let checkingTile = gameboardTiles[startingTileIndex - rowlength + 1];
-      /*             */
+
       // check forward slash diagonal direction
 
       output = checkTiles(
@@ -207,11 +194,6 @@ function checkdiagonal() {
       // check horizontal direction
       checkingTile = gameboardTiles[startingTileIndex + 1];
 
-      // console.log(startingTile);
-      // console.log(checkingTile);
-
-      // console.log(startingTileIndex);
-
       output = checkTiles(
         rowlength,
         startingTileIndex,
@@ -236,53 +218,55 @@ function checkTiles(
   output,
   direction,
 ) {
-  // console.log("checking", direction)
   const gameboardTiles = document.getElementById("gameboard").children;
 
-  // if (!checkingTile){
-    // console.log(checkingTile)
-    // return false
-  // }
-
-  // console.log(startingTile)
-  // console.log(checkingTile)
   if (
     checkingTile &&
     startingTile.style.backgroundColor === checkingTile.style.backgroundColor
   ) {
     collectionArray.push(startingTile);
     for (let index = 1; index < 5; index++) {
-      // if (checkingTile)
-      // console.log(index)
-      // console.log(Array.from(new Set(collectionArray)))
       if (
-        checkingTile && 
+        checkingTile &&
         startingTile.style.backgroundColor ===
-        checkingTile.style.backgroundColor
+          checkingTile.style.backgroundColor
       ) {
         collectionArray.push(checkingTile);
 
         switch (direction) {
           case "forwardslash":
-            console.log("checking forwardslash", startingTile.style.backgroundColor);
+            console.log(
+              "checking forwardslash",
+              startingTile.style.backgroundColor,
+            );
             checkingTile =
-              gameboardTiles[startingTileIndex - (rowlength * index) + index];
+              gameboardTiles[startingTileIndex - rowlength * index + index];
             break;
 
           case "backslash":
-            console.log("checking backslash", startingTile.style.backgroundColor);
+            console.log(
+              "checking backslash",
+              startingTile.style.backgroundColor,
+            );
             checkingTile =
-              gameboardTiles[startingTileIndex - (rowlength * index) - index];
+              gameboardTiles[startingTileIndex - rowlength * index - index];
             break;
 
           case "horizontal":
-            console.log("checking horizontal", startingTile.style.backgroundColor);
+            console.log(
+              "checking horizontal",
+              startingTile.style.backgroundColor,
+            );
             checkingTile = gameboardTiles[startingTileIndex + index];
             break;
 
           case "vertical":
-            console.log("checking vertical", startingTile.style.backgroundColor);
-            checkingTile = gameboardTiles[startingTileIndex - (rowlength * index)];
+            console.log(
+              "checking vertical",
+              startingTile.style.backgroundColor,
+            );
+            checkingTile =
+              gameboardTiles[startingTileIndex - rowlength * index];
             break;
         }
       } else {
@@ -290,12 +274,11 @@ function checkTiles(
       }
     }
     collectionArray = Array.from(new Set(collectionArray));
-    // console.log(collectionArray);
     if (collectionArray.length === 4) {
       output = true;
       console.log(output);
       if (output === true) {
-        showWin()
+        showWin();
       }
       return output;
     } else {
@@ -305,15 +288,21 @@ function checkTiles(
 }
 
 function showWin() {
-  console.log("win detected")
-  const winningMessage = document.createElement("div")
-  winningMessage.id = "winningMessage"
-  winningMessage.style.border = `1px solid ${activePlayerColor}`
-  winningMessage.innerText = `${activePlayerColor.charAt(0).toUpperCase() + activePlayerColor.slice(1)} Player Wins!`
+  console.log("win detected");
 
-  const restartBtn = document.createElement("button")
-  restartBtn.innerText = "New Game"
-  restartBtn.addEventListener("click", () => document.location.reload())
-  winningMessage.append(restartBtn)
-  document.getElementById("gameboard").before(winningMessage)
+  const clearBackground = document.createElement("div");
+  clearBackground.id = "clearBackground";
+
+  const winningMessage = document.createElement("div");
+  winningMessage.id = "winningMessage";
+  winningMessage.style.border = `1px solid ${activePlayerColor}`;
+  winningMessage.innerText = `${activePlayerColor.charAt(0).toUpperCase() + activePlayerColor.slice(1)} Player Wins!`;
+
+  const restartBtn = document.createElement("button");
+  restartBtn.innerText = "New Game";
+  restartBtn.addEventListener("click", () => document.location.reload());
+  winningMessage.append(restartBtn);
+
+  document.getElementById("gameboard").before(clearBackground);
+  document.getElementById("gameboard").after(winningMessage);
 }
