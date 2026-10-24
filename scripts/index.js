@@ -109,7 +109,7 @@ for (let col = 0; col < 7; col++) {
 }
 
 function setactivePlayerColor(boolean) {
-  checkdiagonal();
+  checkdirections();
   if (boolean) {
     activePlayerColor = playerOneColor;
   } else {
@@ -119,7 +119,7 @@ function setactivePlayerColor(boolean) {
     activePlayerColor;
 }
 
-function checkdiagonal() {
+function checkdirections() {
   let output = false;
   const gameboardTiles = document.getElementById("gameboard").children;
 
