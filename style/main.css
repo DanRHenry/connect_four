@@ -16,15 +16,18 @@ body{
     padding: 1rem;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
+    /* transition: all 1s; */
 }
+
 .circleholes{
     height: 2rem;
     width: 2rem;
     border: 1px solid black;
     border-radius: 50%;
+    background-color: white;
 }
 
-.col_0:hover{
+/* .col_0:hover{
     background-color: red;
 }
 
@@ -50,11 +53,34 @@ body{
 
 .col_6:hover{
     background-color: violet;
-}
+} */
 
 #player_up{
     height: 3rem;
     width: 3rem;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     border: 1px solid black;
+}
+
+#winningMessage{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    font-size: xx-large;
+    font-style: italic;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+#winningMessage > *{
+    align-self: center;
+    margin: 1rem;
+    width: fit-content;
+}
+
+button{
+    cursor: pointer;
 }
